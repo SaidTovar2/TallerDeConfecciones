@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lienar_item_ventas"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+
+    <Space
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="Venta numero"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#E6E6E6"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/txt_descripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descripcion:" />
+
+            <TextView
+                android:id="@+id/txt_fecha_llegada"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha de llegada:" />
+
+            <TextView
+                android:id="@+id/txt_fecha_salida"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha de salida:" />
+
+            <TextView
+                android:id="@+id/txt_tipoc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tipo de confeccion o arreglo:" />
+
+            <TextView
+                android:id="@+id/txt_tipot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tipo de tela:" />
+
+            <TextView
+                android:id="@+id/txt_empleado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Empleado:" />
+
+            <TextView
+                android:id="@+id/txt_cliente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cliente:" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/C_btn_editar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:adjustViewBounds="false"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/editar" />
+
+                <ImageButton
+                    android:id="@+id/C_btn_eliminar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/borrar" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
