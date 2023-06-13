@@ -42,6 +42,8 @@ public class ConfeccionesActivity extends AppCompatActivity {
 
     MutableLiveData<List<Ventas>> listMutableLiveData;
 
+    String clienteid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,7 @@ public class ConfeccionesActivity extends AppCompatActivity {
         i.putExtra("listaempleados", (String[][]) null);
         i.putExtra("listatico", (String[][]) null);
         i.putExtra("listatite", (String[][]) null);
+        clienteid = getIntent().getStringArrayExtra("cliente")[0];
         i.putExtra("cliente", getIntent().getStringArrayExtra("cliente"));
 
         init();
@@ -137,7 +140,7 @@ public class ConfeccionesActivity extends AppCompatActivity {
         recyclerConfecciones.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recyclerConfecciones.setAdapter(adapterVentas);
 
-        confeccionesViewModel.getListaVentas().observe(this, new Observer<List<Ventas>>() {
+        confeccionesViewModel.getListaVentas(Integer.parseInt(clienteid)).observe(this, new Observer<List<Ventas>>() {
             @Override
             public void onChanged(List<Ventas> ventas) {
 

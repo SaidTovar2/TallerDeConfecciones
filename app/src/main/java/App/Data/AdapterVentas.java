@@ -75,7 +75,6 @@ public class AdapterVentas extends RecyclerView.Adapter<AdapterVentas.ViewHolder
     TextView txt_tipoc;
     TextView txt_tipot;
     TextView txt_empleado;
-    TextView txt_cliente;
     ImageButton C_btn_eliminar, C_btn_editar;
 
 
@@ -90,7 +89,6 @@ public class AdapterVentas extends RecyclerView.Adapter<AdapterVentas.ViewHolder
             txt_tipoc = itemView.findViewById(R.id.txt_tipoc);
             txt_tipot = itemView.findViewById(R.id.txt_tipot);
             txt_empleado = itemView.findViewById(R.id.txt_empleado);
-            txt_cliente = itemView.findViewById(R.id.txt_cliente);
             C_btn_eliminar = itemView.findViewById(R.id.C_btn_eliminar);
             C_btn_editar = itemView.findViewById(R.id.C_btn_editar);
             txt_numerodeventa = itemView.findViewById(R.id.txt_numerodeventa);
@@ -106,7 +104,6 @@ public class AdapterVentas extends RecyclerView.Adapter<AdapterVentas.ViewHolder
             txt_tipoc.setText("Tipo de confeccion o arreglo: " + ventas.getMaes_tico());
             txt_tipot.setText("Tipo de tela: " + ventas.getMaes_tite());
             txt_empleado.setText("Empleado: " + ventas.getEmpl_id());
-            txt_cliente.setText("Cliente: " + ventas.getClie_id());
             txt_numerodeventa.setText("Venta " + ventas.id);
 
             C_btn_editar.setOnClickListener(new View.OnClickListener() {

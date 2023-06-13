@@ -36,12 +36,14 @@ public class VentasRepository {
     }
 
 
-    public MutableLiveData<List<Ventas>> getListaVentasRepository() {
+    public MutableLiveData<List<Ventas>> getListaVentasRepository(int clienteId) {
         final MutableLiveData<List<Ventas>> data = new MutableLiveData<>();
 
         final Map<String, String> params = new HashMap<>();
 
-        Call<VentasResponse> call = ventasService.getVentasService(params);
+        params.put("clienteId", String.valueOf(clienteId));
+
+        Call<VentasResponse> call = ventasService.getVentasCService(params);
 
         Log.d("response:", "Bien response ventas++");
 

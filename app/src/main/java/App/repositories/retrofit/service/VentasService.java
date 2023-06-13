@@ -18,6 +18,10 @@ public interface VentasService {
     Call<VentasResponse> getVentasService(@Body Map<String, String> params);
 
     @Headers("Content-Type: application/json")
+    @POST(RetrofitService.GET_VENTAS_CLIENTE)
+    Call<VentasResponse> getVentasCService(@Body Map<String, String> params);
+
+    @Headers("Content-Type: application/json")
     @POST(RetrofitService.SET_VENTAS_DELETE)
     Call<Ventas> deleteVentasService(@Body Map<String, String> params);
 

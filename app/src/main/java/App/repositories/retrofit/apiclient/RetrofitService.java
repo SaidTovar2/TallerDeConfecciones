@@ -22,6 +22,8 @@ public class RetrofitService {
    /*****************************************************************************************************/
 
     public static final String GET_VENTAS = BASE_URL + "views/app_get_all_ventas.php";
+
+    public static final String GET_VENTAS_CLIENTE = BASE_URL + "views/app_get_ventas_cliente.php";
     public static final String GET_VENTA = BASE_URL + "views/app_get_usuarios.php";
     public static final String SET_VENTAS_DELETE = BASE_URL + "views/app_delete_ventas.php";
     public static final String SET_VENTAS_UPDATE = BASE_URL + "views/app_update_ventas.php";

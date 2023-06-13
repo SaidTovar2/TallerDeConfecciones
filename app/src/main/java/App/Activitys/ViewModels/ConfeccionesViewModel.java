@@ -30,11 +30,11 @@ public class ConfeccionesViewModel extends ViewModel {
     private VentasRepository ventasRepository;
 
 
-    public MutableLiveData<List<Ventas>> getListaVentas(){
+    public MutableLiveData<List<Ventas>> getListaVentas(int clienteId){
 
         ventasRepository = VentasRepository.getInstance();
 
-        listaVentas = ventasRepository.getListaVentasRepository();
+        listaVentas = ventasRepository.getListaVentasRepository(clienteId);
 
         //Log.d("listaVentas ",""+lis);
 

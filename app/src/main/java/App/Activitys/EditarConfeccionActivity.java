@@ -89,9 +89,9 @@ public class EditarConfeccionActivity extends AppCompatActivity {
         init();
 
         EC_txt_descripcion.setText(descripcion);
-        autocomplete_empleado.setText(llenarAuto(empleado, listaempleados));
-        autocomplete_tipotela.setText(llenarAuto(tipodetela, listatipotela));
-        autocomplete_tipoconfeccion.setText(llenarAuto(tipoconfeccion, listatipoconfeccion));
+        autocomplete_empleado.setText(empleado);
+        autocomplete_tipotela.setText(tipodetela);
+        autocomplete_tipoconfeccion.setText(tipoconfeccion);
         EC_txt_fllegada.setText(formatoFecha(fechallegada, "yyyy-MM-dd","dd-MM-yyyy"));
         EC_txt_fsalida.setText(formatoFecha(fechasalida, "yyyy-MM-dd","dd-MM-yyyy"));
 
@@ -165,15 +165,15 @@ public class EditarConfeccionActivity extends AppCompatActivity {
 
     }
 
-    private String llenarAuto(String tipode, String[][] lista) {
+    private int valorAuto(String tipode, String[][] lista) {
 
-        String resul = "***";
+        int resul = -1;
 
         for (int i=0; i<=lista[1].length; i++){
-
-            if(tipode.equals(lista[0][i])){
-
-                resul = lista[1][i];
+            Log.d("vector", "tamaño:"+lista[1].length+" Buscar: "+tipode+"->"+lista[1][i]);
+            if(tipode.equals(lista[1][i])){
+/*******************************************************************************/
+                resul = Integer.parseInt(lista[0][i]);
                 break;
 
             }
@@ -227,9 +227,9 @@ public class EditarConfeccionActivity extends AppCompatActivity {
                                                         descripcion,
                                                         fechallegada,
                                                         fechasalida,
-                                                        Integer.parseInt(tipoconfeccion),
-                                                        Integer.parseInt(tipodetela),
-                                                        Integer.parseInt(empleado),
+                                                        valorAuto(tipoconfeccion, listatipoconfeccion),
+                                                        valorAuto(tipodetela, listatipotela),
+                                                        valorAuto(empleado, listaempleados),
                                                         Integer.parseInt(cliente[0])).observe(this, new Observer<Ventas>() {
 
             @Override
