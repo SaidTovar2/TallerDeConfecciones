@@ -34,6 +34,7 @@
             android:padding="4dp"
             android:text="Venta numero"
             android:textAlignment="center"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -41,7 +42,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/input_bb"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/txt_descripcion"
@@ -53,43 +54,52 @@
                 android:id="@+id/txt_fecha_llegada"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Fecha de llegada:" />
 
             <TextView
                 android:id="@+id/txt_fecha_salida"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Fecha de salida:" />
 
             <TextView
                 android:id="@+id/txt_tipoc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Tipo de confeccion o arreglo:" />
 
             <TextView
                 android:id="@+id/txt_tipot"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Tipo de tela:" />
 
             <TextView
                 android:id="@+id/txt_empleado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
                 android:text="Empleado:" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <ImageButton
                     android:id="@+id/C_btn_editar"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:adjustViewBounds="false"
+                    android:background="@drawable/input_bbluel"
+                    android:backgroundTint="#FFFFFF"
+                    android:elevation="10dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/editar" />
 
@@ -99,8 +109,11 @@
 
                 <ImageButton
                     android:id="@+id/C_btn_eliminar"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/input_bbluel"
+                    android:backgroundTint="#FFFFFF"
+                    android:elevation="10dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/borrar" />
 

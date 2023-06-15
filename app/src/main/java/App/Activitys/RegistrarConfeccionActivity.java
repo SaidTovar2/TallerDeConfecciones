@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.proyecto.tallerdeconfecciones.R;
 
@@ -46,9 +47,11 @@ public class RegistrarConfeccionActivity extends AppCompatActivity {
 
     String[] cliente = {"-1","No hay registro"};
 
-    String descripcion, tipodetela, tipoconfeccion, empleado, fechallegada, fechasalida;
+    String descripcion = "", tipodetela = "", tipoconfeccion = "", empleado = "", fechallegada = "", fechasalida = "";
 
     RegistrarConfeccionViewModel registrarViewModel;
+
+    LottieAnimationView RC_ani_paper;
 
 
     @Override
@@ -90,6 +93,9 @@ public class RegistrarConfeccionActivity extends AppCompatActivity {
         init();
 
         RC_txt_cliente.setText(cliente[1]);
+
+        RC_ani_paper.setVisibility(View.GONE);
+        RC_ani_paper.pauseAnimation();
 
 
         RC_btn_fllegada.setOnClickListener(new View.OnClickListener() {
@@ -191,16 +197,15 @@ public class RegistrarConfeccionActivity extends AppCompatActivity {
 
         RC_btn_registrar = findViewById(R.id.RC_btn_registrar);
 
+        RC_ani_paper = findViewById(R.id.RC_ani_paper);
+
     }
 
     private void registrarconfeccion() {
-/*
-        RC_txt_fllegada
-        RC_txt_fsalida
-        cliente, descripcion, tipodetela, tipoconfeccion, empleado, fechallegada, fechasalida
 
+        RC_ani_paper.setVisibility(View.VISIBLE);
+        RC_ani_paper.playAnimation();
 
-*/
 
         descripcion = RC_txt_descripcion.getText().toString();
         fechallegada = RC_txt_fllegada.getText().toString();
@@ -234,33 +239,48 @@ public class RegistrarConfeccionActivity extends AppCompatActivity {
         }
         // Parsear la cadena de fecha en el formato original
 
+        if(descripcion.equals("") || tipoconfeccion.equals("") || tipodetela.equals("") || empleado.equals("")){
+
+            Toast.makeText(RegistrarConfeccionActivity.this, "Rellene todos los campos...", Toast.LENGTH_LONG).show();
+            RC_ani_paper.setVisibility(View.GONE);
+            RC_ani_paper.pauseAnimation();
+
+        }else {
+
+            registrarViewModel.setVetas(24, descripcion, fechallegada, fechasalida,
+                    Integer.parseInt(tipoconfeccion), Integer.parseInt(tipodetela), Integer.parseInt(empleado),
+                    Integer.parseInt(cliente[0])).observe(this, new Observer<Ventas>() {
+
+                @Override
+                public void onChanged(Ventas ventas) {
+
+                    try {
+
+                        Log.d("Persona","Bien "+ventas.getStatus());
+                        Toast.makeText(RegistrarConfeccionActivity.this,
+                                RC_txt_descripcion.getText().toString()+": "+ventas.getMessage(),
+                                Toast.LENGTH_LONG).show();
+
+                        finish();
+
+                    } catch (Exception e){
+
+                        Toast.makeText(RegistrarConfeccionActivity.this,
+                                "Verifique todos los datos", Toast.LENGTH_LONG).show();
+
+                    }
+
+                    RC_ani_paper.setVisibility(View.GONE);
+                    RC_ani_paper.pauseAnimation();
 
 
 
-        Log.d("Registrar","descripcion: "+descripcion);
-        Log.d("Registrar","fechallegada: "+fechallegada);
-        Log.d("Registrar","fechasalida: "+fechasalida);
-        Log.d("Registrar","tipoconfeccion: "+Integer.parseInt(tipoconfeccion));
-        Log.d("Registrar","tipodetela: "+Integer.parseInt(tipodetela));
-        Log.d("Registrar","empleado: "+Integer.parseInt(empleado));
-        Log.d("Registrar","cliente: "+Integer.parseInt(cliente[0]));
+                }
+            });
 
-        registrarViewModel.setVetas(24, descripcion, fechallegada, fechasalida,
-                Integer.parseInt(tipoconfeccion), Integer.parseInt(tipodetela), Integer.parseInt(empleado),
-                Integer.parseInt(cliente[0])).observe(this, new Observer<Ventas>() {
+        }
 
-            @Override
-            public void onChanged(Ventas ventas) {
 
-                Log.d("Persona","Bien "+ventas.getStatus());
-                Toast.makeText(RegistrarConfeccionActivity.this,
-                        RC_txt_descripcion.getText().toString()+": "+ventas.getMessage(),
-                        Toast.LENGTH_LONG).show();
-
-                finish();
-
-            }
-        });
 
     }
 

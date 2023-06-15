@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.proyecto.tallerdeconfecciones.R;
 
 import App.Activitys.ViewModels.RegistrarViewModel;
@@ -29,6 +30,8 @@ public class RegistrarActivity extends AppCompatActivity {
     RadioButton r_radio_hombre, r_radio_mujer;
     String genero;
 
+    LottieAnimationView RC_ani_paper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class RegistrarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registrarp);
 
         registrarViewModel = new ViewModelProvider(this).get(RegistrarViewModel.class);
+
 
         r_txt_nombre = findViewById(R.id.r_txt_nombre);
         r_txt_apellido = findViewById(R.id.r_txt_apellido);
@@ -47,6 +51,12 @@ public class RegistrarActivity extends AppCompatActivity {
         r_radio_hombre = findViewById(R.id.r_radio_hombre);
         r_radio_mujer = findViewById(R.id.r_radio_mujer);
 
+        RC_ani_paper = findViewById(R.id.RC_ani_paper);
+
+        RC_ani_paper.pauseAnimation();
+        //RC_ani_paper.setVisibility(View.GONE);
+        RC_ani_paper.setVisibility(View.INVISIBLE);
+
 
         btn_registrar = findViewById(R.id.btn_registrar);
 
@@ -55,7 +65,7 @@ public class RegistrarActivity extends AppCompatActivity {
             public void onClick(View v) { registrar(); }
         });
 
-        genero = "5";
+        //genero = "5";
 
         r_radio_hombre.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,31 +92,51 @@ public class RegistrarActivity extends AppCompatActivity {
 
     private void registrar() {
 
-        registrarViewModel.setPersonaEP(
-                r_txt_nombre.getText().toString(),
-                r_txt_apellido.getText().toString(),
-                r_txt_telefono.getText().toString(),
-                r_txt_direccion.getText().toString(),
-                r_txt_email.getText().toString(),
-                genero,
-                r_txt_password.getText().toString()).observe(this, new Observer<Personas>() {
-            @Override
-            public void onChanged(Personas personas) {
+        RC_ani_paper.playAnimation();
+        RC_ani_paper.setVisibility(View.VISIBLE);
 
-                try {
+        if(r_txt_nombre.getText().toString().equals("") || r_txt_apellido.getText().toString().equals("") || r_txt_telefono.getText().toString().equals("") || r_txt_direccion.getText().toString().equals("") || r_txt_email.getText().toString().equals("") || r_txt_password.getText().toString().equals("") || genero.equals("")){
 
-                    Log.d("Persona", "Bien " + personas.getStatus());
-                    Toast.makeText(RegistrarActivity.this, r_txt_nombre.getText().toString() + ": " + personas.getMessage(), Toast.LENGTH_LONG).show();
-                    finish();
+            Toast.makeText(RegistrarActivity.this, "Rellene todos los campos...", Toast.LENGTH_LONG).show();
 
-                } catch (Exception e) {
+            RC_ani_paper.setVisibility(View.GONE);
+            RC_ani_paper.pauseAnimation();
 
-                    Log.d("Persona", "Error" + e.getMessage());
+        }else {
+
+            registrarViewModel.setPersonaEP(
+                    r_txt_nombre.getText().toString(),
+                    r_txt_apellido.getText().toString(),
+                    r_txt_telefono.getText().toString(),
+                    r_txt_direccion.getText().toString(),
+                    r_txt_email.getText().toString(),
+                    genero,
+                    r_txt_password.getText().toString()).observe(this, new Observer<Personas>() {
+                @Override
+                public void onChanged(Personas personas) {
+
+                    RC_ani_paper.setVisibility(View.GONE);
+                    RC_ani_paper.pauseAnimation();
+
+
+                    try {
+
+                        Log.d("Persona", "Bien " + personas.getStatus());
+                        Toast.makeText(RegistrarActivity.this, r_txt_nombre.getText().toString() + ": " + personas.getMessage(), Toast.LENGTH_LONG).show();
+                        finish();
+
+                    } catch (Exception e) {
+
+                        Log.d("Persona", "Error" + e.getMessage());
+
+                    }
 
                 }
+            });
 
-            }
-        });
+
+
+        }
 
 
     }

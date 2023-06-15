@@ -110,9 +110,16 @@
         android:minHeight="48dp"
         android:textAlignment="center" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="24dp" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/RC_ani_paper"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:elevation="50dp"
+        android:scaleX="3"
+        android:scaleY="3"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/paperplane" />
 
     <Button
         android:id="@+id/btn_registrar"

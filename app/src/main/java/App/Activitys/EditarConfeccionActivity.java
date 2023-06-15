@@ -222,29 +222,40 @@ public class EditarConfeccionActivity extends AppCompatActivity {
         fechallegada = formatoFecha(fechallegada, "dd-MM-yyyy", "yyyy-MM-dd");
         fechasalida = formatoFecha(fechasalida, "dd-MM-yyyy", "yyyy-MM-dd");
 
-        registrarViewModel.setUptadeVentas(Integer.parseInt(ventaid),
-                                                        24,
-                                                        descripcion,
-                                                        fechallegada,
-                                                        fechasalida,
-                                                        valorAuto(tipoconfeccion, listatipoconfeccion),
-                                                        valorAuto(tipodetela, listatipotela),
-                                                        valorAuto(empleado, listaempleados),
-                                                        Integer.parseInt(cliente[0])).observe(this, new Observer<Ventas>() {
+        if(descripcion.equals("") || tipoconfeccion.equals("") || tipodetela.equals("") || empleado.equals("")){
 
-            @Override
-            public void onChanged(Ventas ventas) {
+            Toast.makeText(EditarConfeccionActivity.this, "Rellene todos los campos...", Toast.LENGTH_LONG).show();
 
-                Log.d("Persona","Bien "+ventas.getStatus());
-                Toast.makeText(EditarConfeccionActivity.this,
-                        EC_txt_descripcion.getText().toString()+": "+ventas.getMessage(),
-                        Toast.LENGTH_LONG).show();
 
-                finish();
+        }else{
 
-            }
+            registrarViewModel.setUptadeVentas(Integer.parseInt(ventaid),
+                    24,
+                    descripcion,
+                    fechallegada,
+                    fechasalida,
+                    valorAuto(tipoconfeccion, listatipoconfeccion),
+                    valorAuto(tipodetela, listatipotela),
+                    valorAuto(empleado, listaempleados),
+                    Integer.parseInt(cliente[0])).observe(this, new Observer<Ventas>() {
 
-        });
+                @Override
+                public void onChanged(Ventas ventas) {
+
+                    Log.d("Persona","Bien "+ventas.getStatus());
+                    Toast.makeText(EditarConfeccionActivity.this,
+                            EC_txt_descripcion.getText().toString()+": "+ventas.getMessage(),
+                            Toast.LENGTH_LONG).show();
+
+                    finish();
+
+                }
+
+            });
+
+
+        }
+
 
     }
 

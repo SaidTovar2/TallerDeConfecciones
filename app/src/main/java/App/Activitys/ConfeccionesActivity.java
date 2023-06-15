@@ -139,11 +139,12 @@ public class ConfeccionesActivity extends AppCompatActivity {
 
         recyclerConfecciones.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         recyclerConfecciones.setAdapter(adapterVentas);
-
+        Log.d("Cliente ","Clie id: "+clienteid);
         confeccionesViewModel.getListaVentas(Integer.parseInt(clienteid)).observe(this, new Observer<List<Ventas>>() {
             @Override
             public void onChanged(List<Ventas> ventas) {
 
+                //Log.d("Cliente ","Tamaño de la lista: "+ventas.size());
                 adapterVentas.setVentasList(ventas);
 
             }

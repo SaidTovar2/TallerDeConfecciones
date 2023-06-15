@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.proyecto.tallerdeconfecciones.R;
 
 import App.Activitys.ViewModels.MainViewModel;
@@ -25,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     EditText txt_email,txt_pass;
     Button btn_buscar;
 
+    LottieAnimationView ani_sewing;
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
         txt_pass = findViewById(R.id.l_txt_pass);
         txt_registrar = findViewById(R.id.txt_registrar);
         btn_buscar = findViewById(R.id.btn_buscar);
+        ani_sewing = findViewById(R.id.ani_sewing);
+
+        ani_sewing.pauseAnimation();
+
 
 
         btn_buscar.setOnClickListener(new View.OnClickListener() {
@@ -92,9 +101,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void ingresar(){
 
+        ani_sewing.playAnimation();
+
         mainViewModel.getPersonaEP(txt_email.getText().toString(), txt_pass.getText().toString()).observe(this, new Observer<Personas>() {
             @Override
             public void onChanged(Personas personas) {
+
+                ani_sewing.pauseAnimation();
+
                 try {
 
                     Intent i = new Intent(MainActivity.this, ConfeccionesActivity.class);

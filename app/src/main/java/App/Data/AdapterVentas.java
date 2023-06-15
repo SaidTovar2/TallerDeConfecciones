@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.proyecto.tallerdeconfecciones.R;
@@ -31,14 +32,75 @@ public class AdapterVentas extends RecyclerView.Adapter<AdapterVentas.ViewHolder
 
 
     public void setVentasList(final List<? extends Ventas> ventas) {
-        if (this.listaventa == null) {
+
+        if (ventas != null) {
+
+
 
             this.listaventa = ventas;
 
-            notifyItemRangeInserted(0, ventas.size());
+            DiffUtil.calculateDiff(new DiffUtil.Callback() {
+                @Override
+                public int getOldListSize() {
+
+                    if(listaventa != null){
+
+                        return listaventa.size();
+
+                    }else {
+
+                        return 0;
+
+                    }
+
+                }
+
+                @Override
+                public int getNewListSize() {
+                    return ventas.size();
+                }
+
+                @Override
+                public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+
+                    if(listaventa != null){
+
+                        return listaventa.get(oldItemPosition).getEmpl_id() == ventas.get(newItemPosition).getId();
+
+                    }else {
+
+                        return false;
+
+                    }
+
+
+                }
+
+                @Override
+                public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+
+                    if(listaventa != null){
+
+                        return listaventa.get(oldItemPosition) == ventas.get(newItemPosition);
+
+                    }else {
+
+                        return false;
+
+                    }
+
+                }
+            }).dispatchUpdatesTo(this);
+
+
+
         } else {
+
             this.listaventa = ventas;
+
         }
+
+
 
     }
 
