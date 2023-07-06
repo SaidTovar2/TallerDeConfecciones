@@ -1,38 +1,19 @@
-package App.repositories.retrofit.datasource;
+package App.repositories.retrofit.datasource
 
-import android.util.Log;
+import App.repositories.retrofit.apiclient.RetrofitService
+import App.repositories.retrofit.service.UsuariosService
 
-import androidx.lifecycle.MutableLiveData;
+class UsuariosRepository {
+    private val usuariosService: UsuariosService?
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import App.repositories.retrofit.apiclient.RetrofitService;
-import App.repositories.retrofit.responses.UsuariosResponse;
-import App.repositories.retrofit.service.UsuariosService;
-import App.repositories.room.entities.Usuarios;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class UsuariosRepository {
-
-    private static UsuariosRepository usuariosRepository;
-    private UsuariosService usuariosService;
-
-    public UsuariosRepository(){
-        usuariosService = RetrofitService.createService(UsuariosService.class);
+    init {
+        usuariosService = RetrofitService.createService(UsuariosService::class.java)
     }
 
-    public static UsuariosRepository getInstance(){
-        if (usuariosRepository == null){
-            usuariosRepository = new UsuariosRepository();
-        }
-        return usuariosRepository;
-    }
+    companion object {
+        private var usuariosRepository: UsuariosRepository? = null
 
-    /*
+        /*
     public MutableLiveData<List<Usuarios>> getUsuariosListRepository() {
         final MutableLiveData<List<Usuarios>> data = new MutableLiveData<>();
 
@@ -181,4 +162,12 @@ public class UsuariosRepository {
     }
 
      */
+        val instance: UsuariosRepository?
+            get() {
+                if (usuariosRepository == null) {
+                    usuariosRepository = UsuariosRepository()
+                }
+                return usuariosRepository
+            }
+    }
 }
