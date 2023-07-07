@@ -148,11 +148,11 @@ class RegistrarConfeccionActivity : AppCompatActivity() {
             RC_ani_paper!!.pauseAnimation()
         } else {
             registrarViewModel!!.setVetas(24, descripcion, fechallegada, fechasalida, tipoconfeccion.toInt(), tipodetela.toInt(), empleado.toInt(), cliente!![0].toInt())!!.observe(this, object : Observer<Ventas?> {
-                override fun onChanged(ventas: Ventas) {
+                override fun onChanged(ventas: Ventas?) {
                     try {
-                        Log.d("Persona", "Bien " + ventas.status)
+                        Log.d("Persona", "Bien " + ventas?.status)
                         Toast.makeText(this@RegistrarConfeccionActivity,
-                                RC_txt_descripcion!!.text.toString() + ": " + ventas.message,
+                                RC_txt_descripcion!!.text.toString() + ": " + ventas?.message,
                                 Toast.LENGTH_LONG).show()
                         finish()
                     } catch (e: Exception) {

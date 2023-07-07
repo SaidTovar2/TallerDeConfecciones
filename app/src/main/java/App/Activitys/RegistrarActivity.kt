@@ -44,19 +44,19 @@ class RegistrarActivity : AppCompatActivity() {
         r_radio_hombre = findViewById(R.id.r_radio_hombre)
         r_radio_mujer = findViewById(R.id.r_radio_mujer)
         RC_ani_paper = findViewById(R.id.RC_ani_paper)
-        RC_ani_paper.pauseAnimation()
+        RC_ani_paper?.pauseAnimation()
         //RC_ani_paper.setVisibility(View.GONE);
-        RC_ani_paper.setVisibility(View.INVISIBLE)
+        RC_ani_paper?.setVisibility(View.INVISIBLE)
         btn_registrar = findViewById(R.id.btn_registrar)
-        btn_registrar.setOnClickListener(View.OnClickListener { registrar() })
+        btn_registrar?.setOnClickListener(View.OnClickListener { registrar() })
 
         //genero = "5";
-        r_radio_hombre.setOnClickListener(View.OnClickListener {
-            r_radio_mujer.setChecked(false)
+        r_radio_hombre?.setOnClickListener(View.OnClickListener {
+            r_radio_mujer?.setChecked(false)
             genero = "5"
         })
-        r_radio_mujer.setOnClickListener(View.OnClickListener {
-            r_radio_hombre.setChecked(false)
+        r_radio_mujer?.setOnClickListener(View.OnClickListener {
+            r_radio_hombre?.setChecked(false)
             genero = "6"
         })
     }
@@ -77,12 +77,12 @@ class RegistrarActivity : AppCompatActivity() {
                     r_txt_email!!.text.toString(),
                     genero,
                     r_txt_password!!.text.toString())!!.observe(this, object : Observer<Personas?> {
-                override fun onChanged(personas: Personas) {
+                override fun onChanged(personas: Personas?) {
                     RC_ani_paper!!.visibility = View.GONE
                     RC_ani_paper!!.pauseAnimation()
                     try {
-                        Log.d("Persona", "Bien " + personas.status)
-                        Toast.makeText(this@RegistrarActivity, r_txt_nombre!!.text.toString() + ": " + personas.message, Toast.LENGTH_LONG).show()
+                        Log.d("Persona", "Bien " + personas?.status)
+                        Toast.makeText(this@RegistrarActivity, r_txt_nombre!!.text.toString() + ": " + personas?.message, Toast.LENGTH_LONG).show()
                         finish()
                     } catch (e: Exception) {
                         Log.d("Persona", "Error" + e.message)

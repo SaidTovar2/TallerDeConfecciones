@@ -29,13 +29,13 @@ class MainViewModel : ViewModel() {
     var persona: MutableLiveData<Personas?>? = MutableLiveData()
     private var personasRepository: PersonasRepository? = null
     fun getPersona(personaId: Int): LiveData<Personas?>? {
-        personasRepository = PersonasRepository.Companion.getInstance()
+        personasRepository = PersonasRepository.Companion.instance
         persona = personasRepository!!.getPersonaListRepository(personaId)
         return persona
     }
 
     fun getPersonaEP(email: String, pass: String): LiveData<Personas?>? {
-        personasRepository = PersonasRepository.Companion.getInstance()
+        personasRepository = PersonasRepository.Companion.instance
         persona = personasRepository!!.getPersonaEPListRepository(email, pass)
         return persona
     }

@@ -141,10 +141,10 @@ class EditarConfeccionActivity : AppCompatActivity() {
                     valorAuto(tipoconfeccion, listatipoconfeccion),
                     valorAuto(tipodetela, listatipotela),
                     valorAuto(empleado, listaempleados), cliente!![0].toInt())!!.observe(this, object : Observer<Ventas?> {
-                override fun onChanged(ventas: Ventas) {
-                    Log.d("Persona", "Bien " + ventas.status)
+                override fun onChanged(ventas: Ventas?) {
+                    Log.d("Persona", "Bien " + ventas?.status)
                     Toast.makeText(this@EditarConfeccionActivity,
-                            EC_txt_descripcion!!.text.toString() + ": " + ventas.message,
+                            EC_txt_descripcion!!.text.toString() + ": " + ventas?.message,
                             Toast.LENGTH_LONG).show()
                     finish()
                 }

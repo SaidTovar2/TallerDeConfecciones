@@ -34,7 +34,7 @@ class AdapterVentas(var ventasCallBack: VentasCallBack) : RecyclerView.Adapter<V
 
                 override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
                     return if (listaventa != null) {
-                        listaventa!![oldItemPosition].getEmpl_id() === ventas[newItemPosition].getId()
+                        listaventa!![oldItemPosition].empl_id === ventas[newItemPosition].id
                     } else {
                         false
                     }
@@ -94,19 +94,19 @@ class AdapterVentas(var ventasCallBack: VentasCallBack) : RecyclerView.Adapter<V
         }
 
         fun asignarDatos(ventas: Ventas, ventasCallBack: VentasCallBack) {
-            txt_descripcion!!.text = "Descripcion: " + ventas.getDescripcion()
-            txt_fecha_llegada!!.text = "Fecha de llegada: " + ventas.getFecha_llegada()
-            txt_fecha_salida!!.text = "Fecha de salida: " + ventas.getFecha_salida()
-            txt_tipoc!!.text = "Tipo de confeccion o arreglo: " + ventas.getMaes_tico()
-            txt_tipot!!.text = "Tipo de tela: " + ventas.getMaes_tite()
-            txt_empleado!!.text = "Empleado: " + ventas.getEmpl_id()
+            txt_descripcion!!.text = "Descripcion: " + ventas.descripcion
+            txt_fecha_llegada!!.text = "Fecha de llegada: " + ventas.fecha_llegada
+            txt_fecha_salida!!.text = "Fecha de salida: " + ventas.fecha_salida
+            txt_tipoc!!.text = "Tipo de confeccion o arreglo: " + ventas.maes_tico
+            txt_tipot!!.text = "Tipo de tela: " + ventas.maes_tite
+            txt_empleado!!.text = "Empleado: " + ventas.empl_id
             txt_numerodeventa!!.text = "Venta " + ventas.id
             C_btn_editar!!.setOnClickListener {
-                Log.d("Elemento: ", ventas.getDescripcion() + " id:" + ventas.getId())
+                Log.d("Elemento: ", ventas.descripcion + " id:" + ventas.id)
                 ventasCallBack.onUpdate(ventas)
             }
             C_btn_eliminar!!.setOnClickListener {
-                Log.d("elemento: ", ventas.getDescripcion() + " id: " + ventas.getId())
+                Log.d("elemento: ", ventas.descripcion + " id: " + ventas.id)
                 ventasCallBack.onDelete(ventas)
             }
         }

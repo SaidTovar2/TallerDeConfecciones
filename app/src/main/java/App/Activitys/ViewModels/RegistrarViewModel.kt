@@ -17,7 +17,7 @@ class RegistrarViewModel : ViewModel() {
     private var persona: MutableLiveData<Personas?>? = MutableLiveData()
     private var personasRepository: PersonasRepository? = null
     fun setPersonaEP(nombre: String, apellido: String, telefono: String, direccion: String, email: String, tise: String?, pass: String): LiveData<Personas?>? {
-        personasRepository = PersonasRepository.Companion.getInstance()
+        personasRepository = PersonasRepository.Companion.instance
         persona = personasRepository!!.setPersonaListRepository(nombre, apellido, telefono, direccion, email, tise, pass)
         //Log.d("Persona",""+persona.getValue().getMessage());
         Log.d("Persona", "nombre: $nombre")

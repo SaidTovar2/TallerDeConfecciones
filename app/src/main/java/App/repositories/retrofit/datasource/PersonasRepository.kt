@@ -23,17 +23,17 @@ class PersonasRepository {
         val params: MutableMap<String, String> = HashMap()
         params["personaId"] = personaId.toString()
         val call = personasService!!.getPersonaService(params)
-        call!!.enqueue(object : Callback<Personas> {
-            override fun onResponse(call: Call<Personas>, response: Response<Personas>) {
-                Log.d("response:", "" + response.body().getStatus().toString())
-                if (response.body().getStatus() == "success") {
+        call!!.enqueue(object : Callback<Personas?> {
+            override fun onResponse(call: Call<Personas?>, response: Response<Personas?>) {
+                Log.d("response:", "" + response.body()?.status.toString())
+                if (response.body()?.status == "success") {
                     data.setValue(response.body())
                 } else {
                     data.setValue(null)
                 }
             }
 
-            override fun onFailure(call: Call<Personas>, t: Throwable) {
+            override fun onFailure(call: Call<Personas?>, t: Throwable) {
                 data.setValue(null)
             }
         })
@@ -47,17 +47,17 @@ class PersonasRepository {
         params["password"] = pass
         Log.d("response:", "$email $pass")
         val call = personasService!!.getPersonaEPService(params)
-        call!!.enqueue(object : Callback<PersonaResponse> {
-            override fun onResponse(call: Call<PersonaResponse>, response: Response<PersonaResponse>) {
-                Log.d("response:", "" + response.body().getStatus().toString())
-                if (response.body().getStatus() == "success") {
-                    data.setValue(response.body().getPersonas())
+        call!!.enqueue(object : Callback<PersonaResponse?> {
+            override fun onResponse(call: Call<PersonaResponse?>, response: Response<PersonaResponse?>) {
+                Log.d("response:", "" + response.body()?.status.toString())
+                if (response.body()?.status == "success") {
+                    data.setValue(response.body()?.personas)
                 } else {
                     data.setValue(null)
                 }
             }
 
-            override fun onFailure(call: Call<PersonaResponse>, t: Throwable) {
+            override fun onFailure(call: Call<PersonaResponse?>, t: Throwable) {
                 data.setValue(null)
             }
         })
@@ -69,12 +69,12 @@ class PersonasRepository {
             val data = MutableLiveData<List<Personas>>()
             val params: Map<String, String> = HashMap()
             val call = personasService!!.getPersonasService(params)
-            call!!.enqueue(object : Callback<PersonasResponse> {
-                override fun onResponse(call: Call<PersonasResponse>, response: Response<PersonasResponse>) {
-                    Log.d("response:", "" + response.body().getStatus().toString())
+            call!!.enqueue(object : Callback<PersonasResponse?> {
+                override fun onResponse(call: Call<PersonasResponse?>, response: Response<PersonasResponse?>) {
+                    Log.d("response:", "" + response.body()?.status.toString())
                 }
 
-                override fun onFailure(call: Call<PersonasResponse>, t: Throwable) {}
+                override fun onFailure(call: Call<PersonasResponse?>, t: Throwable) {}
             })
             return data
         }//ToastUtils.shortToast("E: " + t.getMessage());//ToastUtils.shortToast("R: " + response.body().getMessage());
@@ -86,17 +86,17 @@ class PersonasRepository {
             val params: Map<String, String> = HashMap()
             //params.put("page", String.valueOf(1));
             val call = personasService!!.getPersonasService(params)
-            call!!.enqueue(object : Callback<PersonasResponse> {
-                override fun onResponse(call: Call<PersonasResponse>, response: Response<PersonasResponse>) {
+            call!!.enqueue(object : Callback<PersonasResponse?> {
+                override fun onResponse(call: Call<PersonasResponse?>, response: Response<PersonasResponse?>) {
                     //ToastUtils.shortToast("R: " + response.body().getMessage());
-                    if (response.body().getStatus() == "success") {
-                        data.setValue(response.body().getPersonas())
+                    if (response.body()?.status == "success") {
+                        data.setValue(response.body()?.personas)
                     } else {
                         data.setValue(null)
                     }
                 }
 
-                override fun onFailure(call: Call<PersonasResponse>, t: Throwable) {
+                override fun onFailure(call: Call<PersonasResponse?>, t: Throwable) {
                     data.setValue(null)
                     //ToastUtils.shortToast("E: " + t.getMessage());
                 }
@@ -116,19 +116,19 @@ class PersonasRepository {
         params["password"] = pass
         Log.d("response:", "$nombre $apellido")
         val call = personasService!!.setPersonaService(params)
-        call!!.enqueue(object : Callback<Personas> {
-            override fun onResponse(call: Call<Personas>, response: Response<Personas>) {
+        call!!.enqueue(object : Callback<Personas?> {
+            override fun onResponse(call: Call<Personas?>, response: Response<Personas?>) {
 
                 //Log.d("response:",""+response.body().getStatus().toString());
-                Log.d("response:", "" + response.body().getMessage().toString())
-                if (response.body().getStatus() == "success") {
+                Log.d("response:", "" + response.body()?.message.toString())
+                if (response.body()?.status == "success") {
                     data.setValue(response.body())
                 } else {
                     data.setValue(null)
                 }
             }
 
-            override fun onFailure(call: Call<Personas>, t: Throwable) {
+            override fun onFailure(call: Call<Personas?>, t: Throwable) {
                 data.setValue(null)
             }
         })

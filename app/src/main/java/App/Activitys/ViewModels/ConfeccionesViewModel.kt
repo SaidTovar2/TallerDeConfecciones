@@ -21,11 +21,6 @@ class ConfeccionesViewModel : ViewModel() {
         ventasRepository = VentasRepository.Companion.instance
         listaVentas = ventasRepository!!.getListaVentasRepository(clienteId)
 
-        //Log.d("listaVentas ",""+lis);
-
-        //listaVentas.setValue(ventasResponse.getValue().getVentas());
-        /** Imposible usar el objeto mietras se llama en el ViewModel    */
-        //Log.d("Tico",""+listaVentas.getValue().get(1).getFecha_salida());
         return listaVentas
     }
 

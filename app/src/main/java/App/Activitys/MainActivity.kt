@@ -34,24 +34,24 @@ class MainActivity : AppCompatActivity() {
         txt_registrar = findViewById(R.id.txt_registrar)
         btn_buscar = findViewById(R.id.btn_buscar)
         ani_sewing = findViewById(R.id.ani_sewing)
-        ani_sewing.pauseAnimation()
-        btn_buscar.setOnClickListener(View.OnClickListener {
+        ani_sewing!!.pauseAnimation()
+        btn_buscar!!.setOnClickListener(View.OnClickListener {
             Toast.makeText(this@MainActivity, "Cargando...", Toast.LENGTH_LONG).show()
             ingresar()
         })
-        txt_registrar.setOnClickListener(View.OnClickListener { startActivity(Intent(this@MainActivity, RegistrarActivity::class.java)) })
+        txt_registrar!!.setOnClickListener(View.OnClickListener { startActivity(Intent(this@MainActivity, RegistrarActivity::class.java)) })
         mainViewModel!!.id.observe(this, object : Observer<String?> {
-            override fun onChanged(s: String) {
-                txt_email.setText("" + s)
+            override fun onChanged(s: String?) {
+                txt_email?.setText("" + s)
             }
         })
     }
 
     private fun buscarPersonaId() {
         mainViewModel!!.getPersona(txt_email!!.text.toString().toInt())!!.observe(this, object : Observer<Personas?> {
-            override fun onChanged(personas: Personas) {
+            override fun onChanged(personas: Personas?) {
                 try {
-                    txt_registrar.setText(personas.message)
+                    txt_registrar?.setText(personas?.message)
                 } catch (e: Exception) {
                     Log.d("Persona", "Error" + e.message)
                 }
@@ -62,11 +62,11 @@ class MainActivity : AppCompatActivity() {
     private fun ingresar() {
         ani_sewing!!.playAnimation()
         mainViewModel!!.getPersonaEP(txt_email!!.text.toString(), txt_pass!!.text.toString())!!.observe(this, object : Observer<Personas?> {
-            override fun onChanged(personas: Personas) {
+            override fun onChanged(personas: Personas?) {
                 ani_sewing!!.pauseAnimation()
                 try {
                     val i = Intent(this@MainActivity, ConfeccionesActivity::class.java)
-                    i.putExtra("cliente", arrayOf(personas.id + "", personas.nombre + " " + personas.apellido))
+                    i.putExtra("cliente", arrayOf(personas?.id + "", personas?.nombre + " " + personas?.apellido))
                     startActivity(i)
                 } catch (e: Exception) {
                     Log.d("Persona", "Error" + e.message)

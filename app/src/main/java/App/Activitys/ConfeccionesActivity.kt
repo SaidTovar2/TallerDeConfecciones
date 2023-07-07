@@ -90,7 +90,16 @@ class ConfeccionesActivity : AppCompatActivity() {
             override fun onChanged(ventas: List<Ventas?>?) {
 
                 //Log.d("Cliente ","Tamaño de la lista: "+ventas.size());
-                adapterVentas.setVentasList(ventas as List<Ventas>?)
+                try {
+
+                    adapterVentas.setVentasList(ventas as List<Ventas>?)
+
+                }catch (e: Exception){
+
+                    Log.d("error","${e.message}")
+
+                }
+
             }
 
         })
