@@ -1,0 +1,172 @@
+
+Funciones SQL+++++++++++++
+-devuelva el numero de ventas por cliente segun su id
+******************************************************************************
+DELIMITER //
+CREATE FUNCTION obtenerNumeroRegistros(clie_id_param INT) 
+RETURNS INT
+BEGIN
+    DECLARE numRegistros INT;
+    
+    SELECT COUNT(*) INTO numRegistros
+    FROM TBL_VENTAS
+    WHERE clie_id = clie_id_param;
+    
+    RETURN numRegistros;
+END //
+DELIMITER ;
+*************************************
+https://github.com/SaidTovar2/TallerDeConfecciones
+
+
+SELECT ventas_clientes(5) as ventas;
+
+
+-devuelva el numero de ventas por empleado segun su id
+******************************************************************************
+DELIMITER //
+CREATE FUNCTION ventas_empleado(empl_id_param INT) 
+RETURNS INT
+BEGIN
+    DECLARE numRegistros INT;
+    
+    SELECT COUNT(*) INTO numRegistros
+    FROM TBL_VENTAS
+    WHERE empl_id = empl_id_param;
+    
+    RETURN numRegistros;
+END //
+DELIMITER ;
+************************************
+SELECT ventas_empleado(4) as Ventas
+
+
+
+
+
+-devuelva las ventas para la persona segun su id
+
+
+Vistas SQL++++++++++++++++++++++++++
+
+-lista de tipos de telas
+*******************************************************************************SELECT M.id, M.nombre_largo as "nombre" FROM `TBL_MAESTRA` as M where M.dependencia = 15;
+CREATE VIEW vista_tite AS
+SELECT M.id, M.nombre_largo AS nombre
+FROM TBL_MAESTRA AS M
+WHERE M.dependencia = 15;
+*************************
+SELECT * FROM vista_tite;
+
+
+-lista de tipos de confecciones
+*******************************************************************************SELECT id, nombre_largo as "nombre" FROM `TBL_MAESTRA` where dependencia = 7;
+CREATE VIEW vista_tic0 AS
+SELECT M.id, M.nombre_largo AS nombre
+FROM TBL_MAESTRA AS M
+WHERE M.dependencia = 7;
+*******************************************************************************
+SELECT * FROM vista_tico
+
+SELECT E.id, CONCAT(P.nombre, " ", P.apellido) as "Nombre"  FROM `TBL_EMPLEADOS` AS E INNER JOIN `TBL_PERSONAS` AS P WHERE P.id = E.pers_id;
+
+
+
+
+Disparadores (trigger)+++++++++++++++++++++++++++++++++++++
+- que cuando haya menos de 3 arreglos pendientes salte una alarta para realizar descuento por arreglos
+
+
+-verificar fecha de salida es menor a la de llegada
+*******************************************************************************
+DELIMITER $$
+CREATE TRIGGER trg_verificar_fecha_salida
+BEFORE INSERT ON TBL_VENTAS
+FOR EACH ROW
+BEGIN
+  IF NEW.fecha_salida < NEW.fecha_llegada THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'La fecha de salida debe ser posterior a la fecha de llegada.';
+  END IF;
+END$$
+DELIMITER ;
+*******************************************************************************
+
+
+-valida que el empleado exista al actualizar un registro de la tabla ventas
+*******************************************************************************
+DELIMITER $$
+CREATE TRIGGER trg_validar_empleado
+BEFORE UPDATE ON TBL_VENTAS
+FOR EACH ROW
+BEGIN
+  IF NEW.empl_id NOT IN (SELECT id FROM TBL_EMPLEADOS) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El empleado especificado no existe.';
+  END IF;
+END$$
+DELIMITER ;
+********************************************************************************
+
+
+
+
+
+Procedimientos almacendos++++++++++++++++++++++++++++++++++
+-eliminar venta por id
+*******************************************************************************
+DELIMITER //
+
+CREATE PROCEDURE eliminarVentaPorID(venta_id_param INT)
+BEGIN
+    DELETE FROM TBL_VENTAS WHERE id = venta_id_param;
+END //
+
+DELIMITER ;
+
+*******************************************************************************
+CALL eliminarVenta(5);
+
+
+
+
+
+-insertar venta
+*******************************************************************************
+DELIMITER //
+
+CREATE PROCEDURE insertarVenta(
+    IN maes_esta_conf_param INT,
+    IN descripcion_param VARCHAR(30),
+    IN fecha_llegada_param DATE,
+    IN maes_tico_param INT,
+    IN maes_tite_param INT,
+    IN empl_id_param INT,
+    IN clie_id_param INT
+)
+BEGIN
+    INSERT INTO TBL_VENTAS (
+        maes_esta_conf,
+        descripcion,
+        fecha_llegada,
+        fecha_salida,
+        maes_tico,
+        maes_tite,
+        empl_id,
+        clie_id
+    )
+    VALUES (
+        maes_esta_conf_param,
+        descripcion_param,
+        fecha_llegada_param,
+        NULL,
+        maes_tico_param,
+        maes_tite_param,
+        empl_id_param,
+        clie_id_param
+    );
+END //
+
+DELIMITER ;
+
+*******************************************************************************
+CALL insertarVenta();
+
